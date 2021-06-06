@@ -115,21 +115,29 @@ class MainAppState extends State<MainApp> {
                     onPressed: uploadMovies, child: Text("Upload movies"))
                 : null,
           ),
-          ElevatedButton(onPressed: generatePressed, child: Text('Generate')),
           Container(
               child: _uploadedMovies.length > 0
                   ? Column(
                       children: [
-                        Movie(_uploadedMovies[_randomIndex]['name'].toString()),
+                        Row(
+                          children: [
+                            Movie(_uploadedMovies[_randomIndex]['name']
+                                .toString()),
+                            ElevatedButton(
+                              onPressed: () {
+                                html.window.open(
+                                    _uploadedMovies[_randomIndex]['link']
+                                        .toString(),
+                                    'new tab');
+                              },
+                              child: Text("Open in new tab"),
+                            )
+                          ],
+                          mainAxisAlignment: MainAxisAlignment.center,
+                        ),
                         ElevatedButton(
-                          onPressed: () {
-                            html.window.open(
-                                _uploadedMovies[_randomIndex]['link']
-                                    .toString(),
-                                'new tab');
-                          },
-                          child: Text("Open in new tab"),
-                        )
+                            onPressed: generatePressed,
+                            child: Text('Generate')),
                       ],
                     )
                   : null)
